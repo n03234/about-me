@@ -1,0 +1,561 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Yu Gothic', 'Meiryo', sans-serif;
+    background: linear-gradient(135deg, #ffffff 0%, #cfdef3 100%);
+    color: #222;
+    padding-bottom: 80px; /* フッターの高さ分のスペースを確保 */
+}
+
+header {
+    background: linear-gradient(90deg, #89f0ff 0%, #00b379 100%);
+    color: #ffffff;
+    padding: 2em 0 1.5em 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+header h1 {
+    margin: 0 0 0.5em 0;
+    font-size: 2.5em;
+    letter-spacing: 0.1em;
+    text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2.5em;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    padding: 0.3em 0.7em;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+nav a:hover {
+    background: #000000;
+    color: #ffffff;
+}
+
+main {
+    max-width: 900px;
+    margin: 2.5em auto 2em auto;
+    background: rgba(251, 251, 251, 0.9);
+    padding: 2.5em 2em;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(80,201,195,0.08);
+}
+
+section {
+    margin-bottom: 2.5em;
+}
+
+h2 {
+    color: #4a90e2;
+    border-left: 6px solid #50c9c3;
+    padding-left: 0;
+    margin-bottom: 0.7em;
+    font-size: 1.5em;
+}
+
+/* likes.htmlとlikea.htmlのh2要素の統一スタイル */
+.like-page h2 {
+    padding-left: 0;
+}
+
+/* 通常のh2内のテキストに最小限の間隔を追加 */
+.like-page h2:not(:has(a)) {
+    padding-left: 0.3em;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1.2em 0;
+    background: rgba(224, 234, 252, 0.95);
+    color: #000000;
+    font-size: 1em;
+    border-top: 1px solid #cfdef3;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    padding-left: 1.5em;
+}
+
+li {
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+}
+
+.profile-info {
+    background: #f8f9fa;
+    padding: 1.5em;
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
+
+.profile-info p {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+}
+
+.career {
+    margin-top: 1em;
+}
+
+.career-item {
+    background: #f8f9fa;
+    padding: 1.2em;
+    margin-bottom: 1em;
+    border-radius: 8px;
+    border-left: 4px solid #4a90e2;
+}
+
+.career-item h3 {
+    color: #4a90e2;
+    margin: 0 0 0.5em 0;
+    font-size: 1.2em;
+}
+
+.career-item p {
+    margin: 0;
+    color: #555;
+}
+
+.skills {
+    margin-top: 1em;
+}
+
+.skill-item {
+    margin-bottom: 1.5em;
+}
+
+.skill-item h4 {
+    margin: 0 0 0.5em 0;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.skill-bar {
+    background: #e9ecef;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    background: linear-gradient(90deg, #4a90e2 0%, #50c9c3 100%);
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* お問い合わせフォーム改良版
+------------------------------- */
+.contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em 1em;
+}
+
+.contact-intro {
+    text-align: center;
+    margin-bottom: 3em;
+    padding: 2em;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 16px;
+    border: 1px solid #dee2e6;
+}
+
+.intro-text {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin: 1em 0 0 0;
+}
+
+.required-note {
+    display: block;
+    font-size: 0.9em;
+    color: #e74c3c;
+    margin-top: 0.5em;
+    font-weight: bold;
+}
+
+.form-section {
+    background: white;
+    padding: 2.5em;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2em;
+    border: 1px solid #e9ecef;
+}
+
+.contact-form {
+    max-width: 100%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5em;
+    margin-bottom: 1.5em;
+}
+
+.form-group {
+    margin-bottom: 2em;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8em;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.icon {
+    margin-right: 0.5em;
+    font-size: 1.2em;
+}
+
+.required {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-left: 0.3em;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1em;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background: #fafafa;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 4px rgba(74, 144, 226, 0.1);
+    background: white;
+    transform: translateY(-2px);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #adb5bd;
+    font-style: italic;
+}
+
+.submit-group {
+    text-align: center;
+    margin-top: 2.5em;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, #4a90e2 0%, #50c9c3 100%);
+    color: white;
+    padding: 1.2em 3em;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(74, 144, 226, 0.4);
+    background: linear-gradient(135deg, #357abd 0%, #3fa8a3 100%);
+}
+
+.privacy-note {
+    margin-top: 1.5em;
+    font-size: 0.9em;
+    color: #6c757d;
+    line-height: 1.5;
+}
+
+.contact-other {
+    background: white;
+    padding: 2.5em;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5em;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border-left: 4px solid #4a90e2;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.contact-item .icon {
+    font-size: 2em;
+    margin-right: 1em;
+    color: #4a90e2;
+}
+
+.contact-item div {
+    flex: 1;
+}
+
+.contact-item strong {
+    display: block;
+    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 0.3em;
+}
+
+.contact-item p {
+    margin: 0;
+    color: #555;
+    font-size: 1em;
+}
+
+/* like.htmlページ用の調整 */
+.like-page main {
+    margin-bottom: 120px; /* フッターとの間隔を確保 */
+}
+
+.like-page section {
+    margin-bottom: 3em;
+}
+
+.like-page section:last-child {
+    margin-bottom: 4em; /* 最後のセクションに追加の余白 */
+}
+
+/* profile.htmlページ用の調整 */
+.profile-page main {
+    margin-bottom: 120px; /* フッターとの間隔を確保 */
+}
+
+.profile-page section {
+    margin-bottom: 3em;
+}
+
+.profile-page section:last-child {
+    margin-bottom: 4em; /* 最後のセクションに追加の余白 */
+}
+
+/* メンバーギャラリーのスタイル */
+.member-gallery {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 1.5em;
+    margin: 2em 0;
+    flex-wrap: wrap;
+}
+
+.member-item {
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    max-width: 250px;
+}
+
+.member-item p {
+    margin: 0.5em 0;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #000000;
+}
+
+.member-item img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-item img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* 楽曲セクションのスタイル */
+.song-section {
+    margin: 2em 0;
+}
+
+.song-item {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.song-item p {
+    margin: 0.5em 0;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #000000;
+}
+
+.song-item img {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.song-item img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1em;
+    }
+    
+    .contact-container {
+        padding: 1em;
+    }
+    
+    .form-section,
+    .contact-other {
+        padding: 1.5em;
+    }
+    
+    .contact-info {
+        grid-template-columns: 1fr;
+        gap: 1em;
+    }
+    
+    .submit-btn {
+        padding: 1em 2em;
+        font-size: 1.1em;
+    }
+}
+
+/* 坂道アイドルリンクのスタイル */
+.idol-link {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+    padding-left: 0.3em;
+    display: inline-block;
+    transition: none !important;
+}
+
+.idol-link:hover,
+.idol-link:active,
+.idol-link:visited,
+.idol-link:focus {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+}
+
+.idol-link:hover {
+    opacity: 0.8;
+}
+
+/* アニメ・漫画リンクのスタイル */
+.anime-link {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+    padding-left: 0.3em;
+    display: inline-block;
+    transition: none !important;
+}
+
+.anime-link:hover,
+.anime-link:active,
+.anime-link:visited,
+.anime-link:focus {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+}
+
+.anime-link:hover {
+    opacity: 0.8;
+}
+
+/* その他リンクのスタイル */
+.others-link {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+    padding-left: 0.3em;
+    display: inline-block;
+    transition: none !important;
+}
+
+.others-link:hover,
+.others-link:active,
+.others-link:visited,
+.others-link:focus {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+}
+
+.others-link:hover {
+    opacity: 0.8;
+}
+
+/* 配信者リンクのスタイル */
+.haisin-link {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+    padding-left: 0.3em;
+    display: inline-block;
+    transition: none !important;
+}
+
+.haisin-link:hover,
+.haisin-link:active,
+.haisin-link:visited,
+.haisin-link:focus {
+    color: #4a90e2 !important;
+    text-decoration: none !important;
+}
+
+.haisin-link:hover {
+    opacity: 0.8;
+}
