@@ -1,3 +1,16 @@
+/*
+==============================================
+統合済みCSSファイル
+==============================================
+このファイルは以下のCSSファイルの内容を統合しています：
+- css/style.css（メインファイル）
+- about-me/about-me/css/style.css（リアルタイム時計など）
+- css/style2.css（追加レスポンシブデザイン）
+
+重複部分は統合され、コードの冗長性が削減されています。
+==============================================
+*/
+
 html, body {
     height: 100%;
     margin: 0;
@@ -16,6 +29,7 @@ header {
     color: #ffffff;
     padding: 2em 0 1.5em 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
 header h1 {
@@ -449,6 +463,22 @@ li {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* リアルタイム時計のスタイル */
+.clock {
+    position: absolute;
+    top: 1em;
+    right: 2em;
+    background: rgba(255, 255, 255, 0.9);
+    color: #000000;
+    padding: 0.8em 1.2em;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1.5em;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
     .form-row {
@@ -476,8 +506,41 @@ li {
     }
 }
 
-/* 坂道アイドルリンクのスタイル */
-.idol-link {
+/* 小型デバイス用の追加レスポンシブデザイン */
+@media (max-width: 600px) {
+    main {
+        padding: 1em 0.5em;
+    }
+    header h1 {
+        font-size: 1.8em;
+    }
+    nav ul {
+        gap: 1em;
+    }
+    
+    .member-gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .member-item {
+        max-width: 300px;
+        margin-bottom: 1.5em;
+    }
+    
+    .clock {
+        font-size: 1.2em;
+        top: 0.5em;
+        right: 1em;
+        padding: 0.6em 1em;
+    }
+}
+
+/* 各種リンクの共通スタイル */
+.idol-link,
+.anime-link,
+.others-link,
+.haisin-link {
     color: #4a90e2 !important;
     text-decoration: none !important;
     padding-left: 0.3em;
@@ -488,66 +551,15 @@ li {
 .idol-link:hover,
 .idol-link:active,
 .idol-link:visited,
-.idol-link:focus {
-    color: #4a90e2 !important;
-    text-decoration: none !important;
-}
-
-.idol-link:hover {
-    opacity: 0.8;
-}
-
-/* アニメ・漫画リンクのスタイル */
-.anime-link {
-    color: #4a90e2 !important;
-    text-decoration: none !important;
-    padding-left: 0.3em;
-    display: inline-block;
-    transition: none !important;
-}
-
+.idol-link:focus,
 .anime-link:hover,
 .anime-link:active,
 .anime-link:visited,
-.anime-link:focus {
-    color: #4a90e2 !important;
-    text-decoration: none !important;
-}
-
-.anime-link:hover {
-    opacity: 0.8;
-}
-
-/* その他リンクのスタイル */
-.others-link {
-    color: #4a90e2 !important;
-    text-decoration: none !important;
-    padding-left: 0.3em;
-    display: inline-block;
-    transition: none !important;
-}
-
+.anime-link:focus,
 .others-link:hover,
 .others-link:active,
 .others-link:visited,
-.others-link:focus {
-    color: #4a90e2 !important;
-    text-decoration: none !important;
-}
-
-.others-link:hover {
-    opacity: 0.8;
-}
-
-/* 配信者リンクのスタイル */
-.haisin-link {
-    color: #4a90e2 !important;
-    text-decoration: none !important;
-    padding-left: 0.3em;
-    display: inline-block;
-    transition: none !important;
-}
-
+.others-link:focus,
 .haisin-link:hover,
 .haisin-link:active,
 .haisin-link:visited,
@@ -556,6 +568,9 @@ li {
     text-decoration: none !important;
 }
 
+.idol-link:hover,
+.anime-link:hover,
+.others-link:hover,
 .haisin-link:hover {
     opacity: 0.8;
 }
