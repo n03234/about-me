@@ -8,8 +8,9 @@
     <meta name="description" content="期末課題用のサンプルウェブサイトです。">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="like-page">
+<body class="like-page" style="overflow: hidden; height: 100vh;">
     <header>
+        <div class="clock" id="clock"></div>
         <h1>好きなもの</h1>
         <nav>
             <ul>
@@ -31,12 +32,28 @@
             <h2><a href="likea.html" class="anime-link">アニメ・漫画</a></h2>
         </section>
         <section>
-            <h2><a href="liken.html" class="haisin-link">配信者
-            </a></h2>
+            <h2><a href="liken.html" class="haisin-link">配信者</a></h2>
+        </section>
+        <section>
+            <h2><a href="likeo.html" class="haisin-link">オタ活</a></h2>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 私のウェブサイト</p>
     </footer>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>

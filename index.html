@@ -8,8 +8,9 @@
     <meta name="description" content="期末課題用のサンプルウェブサイトです。">
     <link rel="stylesheet" href="style.css">
 </head>
-<body style="background-image: url('images/live.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat;">
+<body style="background-image: url('images/live.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; overflow: hidden; height: 100vh;">
     <header>
+        <div class="clock" id="clock"></div>
         <h1>私のウェブサイトへようこそ</h1>
         <nav>
             <ul>
@@ -28,5 +29,21 @@
     <footer>
         <p>&copy; 2025 私のウェブサイト</p>
     </footer>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+        
+        // 1秒ごとに時計を更新
+        setInterval(updateClock, 1000);
+        // ページロード時に即座に表示
+        updateClock();
+    </script>
 </body>
 </html>
