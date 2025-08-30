@@ -706,6 +706,38 @@ li {
     background: #c0392b;
 }
 
+/* Spotify連携UI用スタイル */
+.spotify-section {
+    background: #f0f8f0;
+    padding: 1.5em;
+    border-radius: 12px;
+    border-left: 4px solid #1db954;
+}
+
+.spotify-section h4 {
+    margin: 0 0 1em 0;
+    color: #1db954;
+    font-size: 1.1em;
+}
+
+.spotify-controls {
+    display: flex;
+    gap: 0.8em;
+    flex-wrap: wrap;
+}
+
+.spotify-controls button {
+    flex: 1;
+    min-width: 120px;
+}
+
+#current-track-info {
+    background: rgba(29, 185, 84, 0.1);
+    padding: 0.8em;
+    border-radius: 8px;
+    border-left: 3px solid #1db954;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
     .form-row {
@@ -804,6 +836,14 @@ li {
     
     .song-item-info {
         width: 100%;
+    }
+    
+    .spotify-controls {
+        flex-direction: column;
+    }
+    
+    .spotify-controls button {
+        min-width: auto;
     }
 }
 
