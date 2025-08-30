@@ -11,7 +11,20 @@
 <body style="background-image: url('images/live.jpg'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; overflow: hidden; height: 100vh;">
     <header>
         <div class="clock" id="clock"></div>
-        <h1>私のウェブサイトへようこそ</h1>
+        <div class="daily-song" id="daily-song">
+            <h3>本日の一曲はこちら</h3>
+            <div class="daily-song-content" id="daily-song-content">
+                <div class="daily-song-no-songs" id="no-songs-message" style="display: none;">
+                    楽曲リストが空です
+                </div>
+                <img id="song-image" src="" alt="今日の楽曲" style="display: none;">
+                <div class="daily-song-info" id="song-info" style="display: none;">
+                    <div class="daily-song-title" id="song-title"></div>
+                    <div class="daily-song-artist" id="song-artist"></div>
+                </div>
+            </div>
+        </div>
+        <h1>私のウェブサイト</h1>
         <nav>
             <ul>
                 <li><a href="index.html">ホーム</a></li>
@@ -30,7 +43,64 @@
         <p>&copy; 2025 私のウェブサイト</p>
     </footer>
     
+    <!-- 楽曲管理モーダル -->
+    <div class="song-manager-modal" id="song-manager-modal">
+        <div class="song-manager-content">
+            <div class="song-manager-header">
+                <h2>楽曲リスト管理</h2>
+                <button class="close-modal" onclick="closeSongManager()">&times;</button>
+            </div>
+            
+            <div class="song-form">
+                <h3>新しい楽曲を追加</h3>
+                <div class="song-form-row">
+                    <input type="text" id="new-song-title" placeholder="曲名" required>
+                    <input type="text" id="new-song-artist" placeholder="アーティスト" required>
+                    <input type="text" id="new-song-image" placeholder="画像パス (images/xxx.jpg)" required style="display: none;">
+                    <button class="add-song-btn" onclick="addSong()">追加</button>
+                </div>
+            </div>
+            
+            <div>
+                <h3>現在の楽曲リスト (<span id="song-count">0</span>曲)</h3>
+                <div class="song-list" id="song-list">
+                    <!-- 楽曲リストがここに表示されます -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
+        // ローカルストレージキー
+        const SONGS_STORAGE_KEY = 'dailySongs';
+        
+        // デフォルト楽曲データ（初回のみ使用）
+        const defaultSongs = [
+            { title: "夜明けの詩", artist: "乃木坂46", image: "images/yoake.jpg" },
+            { title: "絶愛", artist: "櫻坂46", image: "images/zetuai.webp" },
+            { title: "感情", artist: "日向坂46", image: "images/kanzyou.jpg" },
+            { title: "大丈夫", artist: "乃木坂46", image: "images/daizyoubu.jpg" },
+            { title: "Kiss me 幸せ", artist: "櫻坂46", image: "images/kissme-.jpg" }
+        ];
+
+        // 楽曲データの読み込み
+        function loadSongs() {
+            const stored = localStorage.getItem(SONGS_STORAGE_KEY);
+            if (stored) {
+                return JSON.parse(stored);
+            } else {
+                // 初回起動時はデフォルト楽曲を設定
+                saveSongs(defaultSongs);
+                return defaultSongs;
+            }
+        }
+        
+        // 楽曲データの保存
+        function saveSongs(songs) {
+            localStorage.setItem(SONGS_STORAGE_KEY, JSON.stringify(songs));
+        }
+        
+        // 時計更新
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -40,10 +110,170 @@
             document.getElementById('clock').textContent = timeString;
         }
         
-        // 1秒ごとに時計を更新
+        // 今日の楽曲取得
+        function getDailySong() {
+            const songs = loadSongs();
+            if (songs.length === 0) {
+                return null;
+            }
+            
+            const today = new Date();
+            const dateString = today.getFullYear() + '-' + 
+                              String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                              String(today.getDate()).padStart(2, '0');
+            
+            // 日付文字列をハッシュ化して楽曲インデックスを決定
+            let hash = 0;
+            for (let i = 0; i < dateString.length; i++) {
+                const char = dateString.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // 32bit整数に変換
+            }
+            
+            const songIndex = Math.abs(hash) % songs.length;
+            return songs[songIndex];
+        }
+        
+        // 今日の楽曲表示更新
+        function updateDailySong() {
+            const song = getDailySong();
+            const noSongsMessage = document.getElementById('no-songs-message');
+            const songImage = document.getElementById('song-image');
+            const songInfo = document.getElementById('song-info');
+            const songTitle = document.getElementById('song-title');
+            const songArtist = document.getElementById('song-artist');
+            
+            if (song) {
+                noSongsMessage.style.display = 'none';
+                songImage.style.display = 'none'; // 画像は常に非表示
+                songInfo.style.display = 'block';
+                
+                // 画像設定は不要だが、データ保持のため残す
+                songImage.src = song.image;
+                songImage.alt = song.title;
+                songTitle.textContent = song.title;
+                songArtist.textContent = song.artist;
+            } else {
+                noSongsMessage.style.display = 'block';
+                songImage.style.display = 'none';
+                songInfo.style.display = 'none';
+            }
+        }
+        
+        // 楽曲管理モーダル開く
+        function openSongManager() {
+            document.getElementById('song-manager-modal').style.display = 'flex';
+            updateSongList();
+        }
+        
+        // 楽曲管理モーダル閉じる
+        function closeSongManager() {
+            document.getElementById('song-manager-modal').style.display = 'none';
+        }
+        
+        // 楽曲追加
+        function addSong() {
+            const title = document.getElementById('new-song-title').value.trim();
+            const artist = document.getElementById('new-song-artist').value.trim();
+            const image = 'images/default.jpg'; // 画像は固定値
+            
+            if (!title || !artist) {
+                alert('曲名とアーティストを入力してください。');
+                return;
+            }
+            
+            const songs = loadSongs();
+            songs.push({ title, artist, image });
+            saveSongs(songs);
+            
+            // フォームクリア
+            document.getElementById('new-song-title').value = '';
+            document.getElementById('new-song-artist').value = '';
+            // 画像入力欄は非表示なのでクリア不要
+            
+            updateSongList();
+            updateDailySong(); // 楽曲追加後に今日の楽曲を更新
+        }
+        
+        // 楽曲削除
+        function deleteSong(index) {
+            if (confirm('この楽曲を削除しますか？')) {
+                const songs = loadSongs();
+                songs.splice(index, 1);
+                saveSongs(songs);
+                updateSongList();
+                updateDailySong(); // 楽曲削除後に今日の楽曲を更新
+            }
+        }
+        
+        // 楽曲リスト表示更新
+        function updateSongList() {
+            const songs = loadSongs();
+            const songList = document.getElementById('song-list');
+            const songCount = document.getElementById('song-count');
+            
+            songCount.textContent = songs.length;
+            
+            if (songs.length === 0) {
+                songList.innerHTML = '<div style="padding: 2em; text-align: center; color: #666;">楽曲が登録されていません</div>';
+                return;
+            }
+            
+            songList.innerHTML = songs.map((song, index) => `
+                <div class="song-item-row">
+                    <div class="song-item-info">
+                        <div class="song-item-title">${song.title}</div>
+                        <div class="song-item-artist">${song.artist}</div>
+                    </div>
+                    <button class="delete-song-btn" onclick="deleteSong(${index})">削除</button>
+                </div>
+            `).join('');
+        }
+        
+        // モーダル外クリックで閉じる
+        document.getElementById('song-manager-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSongManager();
+            }
+        });
+        
+        // Enterキーで楽曲追加
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.getElementById('song-manager-modal').style.display === 'flex') {
+                const activeElement = document.activeElement;
+                if (activeElement.id === 'new-song-title' || activeElement.id === 'new-song-artist') {
+                    addSong();
+                }
+            }
+        });
+        
+        // 隠しキーボードショートカット：Ctrl+Shift+M で楽曲管理画面を開く
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.shiftKey && e.key === 'M') {
+                e.preventDefault();
+                openSongManager();
+            }
+        });
+        
+        // 今日の楽曲エリアをダブルクリックで楽曲管理画面を開く
+        document.getElementById('daily-song').addEventListener('dblclick', function() {
+            openSongManager();
+        });
+        
+        // 初期化
         setInterval(updateClock, 1000);
-        // ページロード時に即座に表示
         updateClock();
+        updateDailySong();
+        
+        // 日付が変わったかチェック（1分ごと）
+        let lastDate = new Date().getDate();
+        setInterval(() => {
+            const currentDate = new Date().getDate();
+            if (currentDate !== lastDate) {
+                updateDailySong();
+                lastDate = currentDate;
+            }
+        }, 60000);
     </script>
 </body>
 </html>

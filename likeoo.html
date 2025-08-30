@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <title>ウェブサイト</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="期末課題用のサンプルウェブサイトです。">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="like-page">
+    <header>
+        <div class="clock" id="clock"></div>
+        <h1>アニメ・漫画</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="profile.html#">プロフィール</a></li>
+                <li><a href="like.html">好きなもの</a></li>
+                <li><a href="ktc.html">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>コラボカフェ</h2>
+            <img src="images/scrogo.jpeg" alt="nrogo" width="260" height="300">
+            <img src="images/scito.jpeg" alt="nrogo" width="350" height="300">
+            <img src="images/scy.jpeg" alt="nrogo" width="350" height="350">
+            <img src="images/scin.jpeg" alt="nrogo" width="240" height="350">
+            <img src="images/okopure.jpeg" alt="nrogo" width="360" height="300">
+            <img src="images/shiomu.jpeg" alt="nrogo" width="360" height="300">
+            <img src="images/scitoha.jpeg" alt="nrogo" width="350" height="430">
+            <br>
+            <img src="images/ncrogo.jpeg" alt="nrogo" width="260" height="300">
+            <img src="images/umasolo.jpeg" alt="nrogo" width="380" height="300">
+            <br>
+            <img src="images/umaioki.jpeg" alt="nrogo" width="350" height="350">
+            <img src="images/Licaomu.jpeg" alt="nrogo" width="350" height="350">
+            <img src="images/kuboomu.jpeg" alt="nrogo" width="350" height="300">
+            <img src="images/karage.jpeg" alt="nrogo" width="360" height="300">
+            <img src="images/riripafe.jpeg" alt="nrogo" width="300" height="350">
+            <img src="images/pann.jpeg" alt="nrogo" width="360" height="300">
+            <img src="images/kubogyouza.jpeg" alt="nrogo" width="350" height="350">
+            <h2>祝花</h2>
+            <img src="images/h1.jpeg" alt="nrogo" width="350" height="350">
+            <img src="images/h3.jpeg" alt="nrogo" width="350" height="350">
+            <img src="images/h2.jpeg" alt="nrogo" width="350" height="300">
+            <img src="images/hl.jpeg" alt="nrogo" width="360" height="300">
+            <img src="images/h4.jpeg" alt="nrogo" width="300" height="350">
+            <img src="images/h5.jpeg" alt="nrogo" width="360" height="300">
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 私のウェブサイト</p>
+    </footer>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clock').textContent = timeString;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>

@@ -479,6 +479,233 @@ li {
     z-index: 1001;
 }
 
+/* 今日の1曲のスタイル */
+.daily-song {
+    position: absolute;
+    top: 1em;
+    left: 2em;
+    background: rgba(255, 255, 255, 0.95);
+    color: #333;
+    padding: 1em;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    max-width: 280px;
+    transition: all 0.3s ease;
+}
+
+.daily-song:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+}
+
+.daily-song h3 {
+    margin: 0 0 0.8em 0;
+    font-size: 1.1em;
+    color: #4a90e2;
+    text-align: center;
+    border-bottom: 2px solid #50c9c3;
+    padding-bottom: 0.5em;
+}
+
+.daily-song-content {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+.daily-song img {
+    display: none; /* 画像を非表示 */
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.daily-song-info {
+    flex: 1;
+}
+
+.daily-song-title {
+    font-weight: bold;
+    font-size: 1em;
+    color: #333;
+    margin: 0 0 0.3em 0;
+}
+
+.daily-song-artist {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0;
+}
+
+.daily-song-no-songs {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* 楽曲管理モーダルのスタイル */
+.song-manager-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.song-manager-content {
+    background: white;
+    padding: 2em;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.song-manager-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 1.5em;
+    border-bottom: 2px solid #50c9c3;
+    padding-bottom: 0.5em;
+}
+
+.song-manager-header h2 {
+    color: #4a90e2;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #666;
+    margin-left: auto;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.song-form {
+    background: #f8f9fa;
+    padding: 1.5em;
+    border-radius: 12px;
+    margin-bottom: 2em;
+}
+
+.song-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr auto;
+    gap: 1em;
+    align-items: end;
+    margin-bottom: 1em;
+}
+
+.song-form input {
+    padding: 0.8em;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.song-form input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+.add-song-btn {
+    background: #50c9c3;
+    color: white;
+    border: none;
+    padding: 0.8em 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.add-song-btn:hover {
+    background: #3fa8a3;
+}
+
+.song-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.song-item-row {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0.8em;
+    border-bottom: 1px solid #f0f0f0;
+    background: white;
+}
+
+.song-item-row:last-child {
+    border-bottom: none;
+}
+
+.song-item-row:hover {
+    background: #f8f9fa;
+}
+
+.song-item-image {
+    display: none; /* 楽曲管理での画像も非表示 */
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #e9ecef;
+}
+
+.song-item-info {
+    flex: 1;
+}
+
+.song-item-title {
+    font-weight: bold;
+    margin: 0 0 0.2em 0;
+    font-size: 0.9em;
+}
+
+.song-item-artist {
+    margin: 0;
+    color: #666;
+    font-size: 0.8em;
+}
+
+.delete-song-btn {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.4em 0.8em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.delete-song-btn:hover {
+    background: #c0392b;
+}
+
 /* レスポンシブデザイン */
 @media (max-width: 768px) {
     .form-row {
@@ -533,6 +760,50 @@ li {
         top: 0.5em;
         right: 1em;
         padding: 0.6em 1em;
+    }
+    
+    .daily-song {
+        top: 0.5em;
+        left: 1em;
+        max-width: 200px;
+        padding: 0.8em;
+    }
+    
+    .daily-song h3 {
+        font-size: 1em;
+    }
+    
+    .daily-song img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .daily-song-title {
+        font-size: 0.9em;
+    }
+    
+    .daily-song-artist {
+        font-size: 0.8em;
+    }
+    
+    .song-manager-content {
+        padding: 1.5em;
+        width: 95%;
+    }
+    
+    .song-form-row {
+        grid-template-columns: 1fr;
+        gap: 0.8em;
+    }
+    
+    .song-item-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5em;
+    }
+    
+    .song-item-info {
+        width: 100%;
     }
 }
 
