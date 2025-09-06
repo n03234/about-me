@@ -299,7 +299,8 @@
         document.getElementById('song-manager-modal').addEventListener('click',e=>{ if(e.target===e.currentTarget) closeSongManager(); });
         document.addEventListener('keypress',e=>{ if(e.key==='Enter' && document.getElementById('song-manager-modal').style.display==='flex'){ const ae=document.activeElement; if(ae.id==='new-song-title'||ae.id==='new-song-artist') addSong(); }});
         document.addEventListener('keydown',e=>{ if(e.ctrlKey&&e.shiftKey&&e.key==='M'){ e.preventDefault(); openSongManager(); }});
-        document.getElementById('daily-song').addEventListener('dblclick',openSongManager);
+        // 楽曲管理画面のダブルクリックアクセス無効化：セキュリティのため削除
+        // document.getElementById('daily-song').addEventListener('dblclick',openSongManager);
 
         // ===================== 初期化 =====================
         setInterval(updateClock,1000); updateClock(); updateDailySong();
