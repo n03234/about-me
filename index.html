@@ -94,7 +94,9 @@
         // Spotify Web API設定 (PKCE対応)
         const SPOTIFY_CONFIG = {
             CLIENT_ID: '5367989a704647cf8fab23a82776c862',
-            REDIRECT_URI: 'https://n03234.github.io/about-me/index.html',
+            // ローカルテスト用: Live Server環境での動作確認
+            REDIRECT_URI: 'http://127.0.0.1:5500/index.html',
+            // 本番用: REDIRECT_URI: 'https://n03234.github.io/about-me/index.html',
             SCOPES: 'user-read-currently-playing user-read-playback-state'
         };
         
@@ -288,7 +290,19 @@
         }
 
         // ===================== UI / 楽曲ロジック（既存） =====================
-        function updateClock(){ const now=new Date(); document.getElementById('clock').textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`; }
+        function updateClock(){ 
+            const now=new Date(); 
+            document.getElementById('clock').textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+            
+            // 日付変更チェック（時計更新のタイミングで実行）
+            const currentDate = now.getDate();
+            if (window.lastDate && currentDate !== window.lastDate) {
+                updateDailySong(); // 日付が変わったら楽曲更新
+                window.lastDate = currentDate;
+            } else if (!window.lastDate) {
+                window.lastDate = currentDate; // 初回設定
+            }
+        }
         function getDailySong(){ const songs=loadSongs(); if(!songs.length) return null; const d=new Date(); const dateStr=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; let hash=0; for(let i=0;i<dateStr.length;i++){ hash=((hash<<5)-hash)+dateStr.charCodeAt(i); hash|=0;} return songs[Math.abs(hash)%songs.length]; }
         function updateDailySong(){ const song=getDailySong(); const noMsg=document.getElementById('no-songs-message'); const img=document.getElementById('song-image'); const info=document.getElementById('song-info'); const t=document.getElementById('song-title'); const a=document.getElementById('song-artist'); if(song){ noMsg.style.display='none'; img.style.display='none'; info.style.display='block'; img.src=song.image; img.alt=song.title; t.textContent=song.title; a.textContent=song.artist;} else { noMsg.style.display='block'; img.style.display='none'; info.style.display='none'; } }
         function openSongManager(){ document.getElementById('song-manager-modal').style.display='flex'; updateSongList(); updateSpotifyStatus(); }
@@ -304,7 +318,8 @@
 
         // ===================== 初期化 =====================
         setInterval(updateClock,1000); updateClock(); updateDailySong();
-        let lastDate=new Date().getDate(); setInterval(()=>{ const cd=new Date().getDate(); if(cd!==lastDate){ updateDailySong(); lastDate=cd;} },60000);
+        // 日付変更チェックは updateClock 内で実行するため、以下の独立したsetIntervalは削除
+        // let lastDate=new Date().getDate(); setInterval(()=>{ const cd=new Date().getDate(); if(cd!==lastDate){ updateDailySong(); lastDate=cd;} },60000);
 
         (async function initSpotifyPKCE(){
             await handleSpotifyCallback(); // code パラメータがあれば処理
